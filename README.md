@@ -5,7 +5,7 @@ This modification changes the following three underground dragon caves from `Fea
 - `iceandfire:fire_dragon_cave`
 - `iceandfire:ice_dragon_cave`
 - `iceandfire:lightning_dragon_cave`
-Target version: Minecraft 1.20.1 / Forge, corresponding to the source code package `Ice_and_Fire-1.20.1-2.1.13-beta-5`.
+Target version: Minecraft 1.20.1 Forge, corresponding to the source code package `Ice_and_Fire-1.20.1-2.1.13-beta-5`.
 # Main Implementation
 ### 1. Native Structure and StructurePiece
 - `DragonCaveStructure`: Responsible for candidate chunk selection, probability, height, biome, distance, and cave spacing determination, and creating the structure starting point.
