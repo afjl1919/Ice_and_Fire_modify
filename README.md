@@ -1,6 +1,6 @@
 # Ice and Fire
 Ice and Fire is a minecraft mod created by Raptorfarian and Alexthe666 which adds various mythical creatures like dragons, hypogriffs, faries and many more to the game!
-
+## Main modifications
 This modification changes the following three underground dragon caves from `Feature<NoneFeatureConfiguration>` to native `Structure`:
 - `iceandfire:fire_dragon_cave`
 - `iceandfire:ice_dragon_cave`
@@ -35,14 +35,14 @@ These configuration items will continue to be read:
 - `dangerousWorldGenDistanceLimit`
 - `dangerousWorldGenSeparationLimit`
 - Citadel and this mod's existing biome configurations for the three dragon caves
-# Location Commands
+## Location Commands
 ```mcfunction
 /locate structure iceandfire:fire_dragon_cave
 /locate structure iceandfire:ice_dragon_cave
 /locate structure iceandfire:lightning_dragon_cave
 ```
 This will only affect newly generated chunks; old dragon caves in already generated chunks will not automatically migrate.
-# Differences from Old Feature Behavior
+## Differences from Old Feature Behavior
 1. `Structure.GenerationContext` does not have access to real-time world spawn points or `IafWorldData` instances, so spawn point distance is now judged relative to the world origin `(0, 0)`.
 2. Original dangerous terrain spacing is managed uniformly by persistent world data, which is inaccessible during the structure start phase. This implementation uses deterministic local priority to limit distance between the three underground dragon caves but does not enforce complete mutual exclusion with other dangerous Features like dragon dens or cyclops caves.
 3. To ensure stable cross-chunk results, cave interiors use position randomness based on \"structure seed + block coordinates\". The shape and content rules remain consistent, but the exact cave shape and ore positions under the same world seed will not be identical to the old Feature version.
