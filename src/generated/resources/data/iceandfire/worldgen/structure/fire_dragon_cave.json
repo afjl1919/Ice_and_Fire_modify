@@ -1,0 +1,8 @@
+{
+  "type": "iceandfire:dragon_cave",
+  "biomes": "#iceandfire:has_structure/fire_dragon_cave",
+  "dragon_type": "fire",
+  "spawn_overrides": {},
+  "step": "underground_structures",
+  "terrain_adaptation": "none"
+}
