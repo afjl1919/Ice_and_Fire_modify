@@ -9,7 +9,7 @@ This mod migrates the following three underground dragon caves from `Feature<Non
 - `iceandfire:ice_dragon_cave`
 - `iceandfire:lightning_dragon_cave`
 
-Target version: Minecraft 1.20.1 / Forge, corresponding to the source package `Ice_and_Fire-1.20.1-2.1.13-beta-5`.
+Target version: Minecraft 1.20.1 Forge, corresponding to the source package `Ice_and_Fire-1.20.1-2.1.13-beta-5`.
 
 ## Core Implementation
 
@@ -51,7 +51,7 @@ These configuration values remain in effect:
 - `dragonDenGoldAmount`
 - `dangerousWorldGenDistanceLimit`
 - `dangerousWorldGenSeparationLimit`
-- Citadel / this mod's original biome configuration for the three dragon caves
+- this mod's original biome configuration for the three dragon caves
 
 ## Locate Command
 
@@ -70,6 +70,13 @@ This only affects newly generated chunks. Existing dragon caves in already-gener
 3. To ensure stable cross-chunk results, the cave interior uses positional randomness derived from "structure seed + block coordinates." The shape and content rules remain consistent, but exact cave layouts and ore positions will not be identical to the old Feature version under the same world seed.
 4. All three StructureSets use `spacing: 1`, with `DragonCaveStructure` applying the original `1 / generateDragonDenChance` probability. This keeps configuration runtime-effective, but the structure locator will scan more candidate chunks than structures using fixed larger spacing.
 5. Structure biome tags first cover the overworld, then the original dynamic BiomeConfig check is performed in `findGenerationPoint`. This preserves user configuration rather than hardcoding dynamic configs into static datapack tags.
+
+## Usage
+In theory, it can be used as a direct replacement for 'iceandfire-2.1.13-1.20.1-beta-5.jar'.
+
+There is a possibility of conflict with mods that modify the dragon nest generation logic.
+
+\\\!!! Back up your save file before use !!!///
 
 # Build
 Run
