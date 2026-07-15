@@ -38,6 +38,7 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 - 金/银/铜宝藏堆
 - 雌性/雄性龙穴箱子及原战利品表
 - 75–124 日龄、沉睡、禁用成长、带巢穴位置的三级龙
+
 继续读取这些配置项：
 - `generateDragonDenChance`
 - `oreToStoneRatioForDragonCaves`
@@ -72,3 +73,5 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 ./gradlew compileJava
 ./gradlew runData
 ```
+
+可在 `build\libs` 中找到输出的 `.jar`文件
