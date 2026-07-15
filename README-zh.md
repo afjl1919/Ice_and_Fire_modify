@@ -1,5 +1,5 @@
 # Ice and Fire
-Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为游戏添加了各种神话生物，如龙、半鹰半狮兽、精灵等！
+Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为游戏添加了各种神话生物等！
 
 # Ice and Fire 1.20.1：三种龙穴由 Feature 迁移为 Structure
 本修改把以下三个地下龙穴从 `Feature<NoneFeatureConfiguration>` 改为原生 `Structure`：
@@ -7,7 +7,7 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 - `iceandfire:ice_dragon_cave`
 - `iceandfire:lightning_dragon_cave`
 
-目标版本：Minecraft 1.20.1 Forge，对应本源码包 `Ice_and_Fire-1.20.1-2.1.13-beta-5`。
+目标版本：Minecraft 1.20.1 Forge，对应源码版本 `Ice_and_Fire-1.20.1-2.1.13-beta-5`。
 
 ## 主要实现
 
