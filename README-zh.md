@@ -70,8 +70,7 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 运行
 
 ```bash
-./gradlew compileJava
-./gradlew runData
+./gradlew build
 ```
 
 可在 `build\libs` 中找到输出的 `.jar`文件
