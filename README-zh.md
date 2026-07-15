@@ -65,7 +65,7 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 4. 三个 StructureSet 使用 `spacing: 1`，再由 `DragonCaveStructure` 应用原有的 `1 / generateDragonDenChance` 概率。这样配置仍可在运行时生效，但结构定位扫描的候选区块会比使用固定大间距的结构更多。
 5. 结构生物群系标签先覆盖主世界，再在 `findGenerationPoint` 中执行原有动态 BiomeConfig 检查。这是为了保留用户配置，而不是把动态配置硬编码成静态数据包标签。
 
-## 构建与验证状态
+## 构建
 
 运行
 
