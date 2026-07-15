@@ -42,7 +42,7 @@ repositories {
 def build_snapshot = System.getenv("BUILD_SNAPSHOT") == "true"
 def build_id = System.getenv("BUILD_ID")
 
-version = '2.1.13-1.20.1'
+version = '2.1.13modify-1.20.1'
 
 if (build_snapshot) {
     version += '-SNAPSHOT'
@@ -57,7 +57,7 @@ if (build_id != null) {
     version += "+build.${build_id}"
 }
 
-group = 'com.github.alexthe667'
+group = 'com.github.afjl1919'
 archivesBaseName = 'iceandfire'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -133,11 +133,11 @@ jar {
     manifest {
         attributes([
             "Specification-Title": "iceandfire",
-            "Specification-Vendor": "alexthe667",
+            "Specification-Vendor": "alexthe667 (Original), afjl1919 (Modified)",
             "Specification-Version": project.properties.get('mod_version', version),
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor": "alexthe667",
+            "Implementation-Vendor": "alexthe667 (Original), afjl1919 (Modified)",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "MixinConfigs": "iceandfire.mixins.json"
         ])
