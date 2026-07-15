@@ -70,3 +70,10 @@ This only affects newly generated chunks. Existing dragon caves in already-gener
 3. To ensure stable cross-chunk results, the cave interior uses positional randomness derived from "structure seed + block coordinates." The shape and content rules remain consistent, but exact cave layouts and ore positions will not be identical to the old Feature version under the same world seed.
 4. All three StructureSets use `spacing: 1`, with `DragonCaveStructure` applying the original `1 / generateDragonDenChance` probability. This keeps configuration runtime-effective, but the structure locator will scan more candidate chunks than structures using fixed larger spacing.
 5. Structure biome tags first cover the overworld, then the original dynamic BiomeConfig check is performed in `findGenerationPoint`. This preserves user configuration rather than hardcoding dynamic configs into static datapack tags.
+
+# Build
+Run
+```bash
+./gradlew build
+```
+The output `.jar` file can be found in `build\libs\`
