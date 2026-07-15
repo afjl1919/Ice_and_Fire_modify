@@ -1,0 +1,160 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { url = 'https://maven.parchmentmc.org' }
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "1000"
+        }
+    }
+}
+
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+repositories {
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+    }
+}
+
+def build_snapshot = System.getenv("BUILD_SNAPSHOT") == "true"
+def build_id = System.getenv("BUILD_ID")
+
+version = '2.1.13-1.20.1'
+
+if (build_snapshot) {
+    version += '-SNAPSHOT'
+}
+if (build_id != null) {
+    def split = build_id.split('-')
+    if (split.length >= 2) {
+        def build_id_last = split[split.length - 1]
+        def build_id_second = split[split.length - 2]
+        build_id = build_id_second + "-" + build_id_last
+    }
+    version += "+build.${build_id}"
+}
+
+group = 'com.github.alexthe667'
+archivesBaseName = 'iceandfire'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+minecraft {
+    mappings channel: 'parchment', version: "${parchment_version}-${mc_version}"
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                "iceandfire" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            arg "-mixin.config=citadel.mixins.json"
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            property 'forge.logging.markers', 'REGISTRYDUMP'
+        }
+
+        server {
+            workingDirectory project.file('server')
+            property 'mixin.env.disableRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            arg "-mixin.config=citadel.mixins.json"
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+        }
+
+        data {
+            workingDirectory project.file('data')
+            arg "-mixin.config=citadel.mixins.json"
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            args '--mod', 'iceandfire', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "iceandfire.refmap.json"
+    config 'iceandfire.mixins.json'
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    implementation fg.deobf("curse.maven:citadel-331936:5075402")
+}
+
+jar {
+    duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+    manifest {
+        attributes([
+            "Specification-Title": "iceandfire",
+            "Specification-Vendor": "alexthe667",
+            "Specification-Version": project.properties.get('mod_version', version),
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor": "alexthe667",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "iceandfire.mixins.json"
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
