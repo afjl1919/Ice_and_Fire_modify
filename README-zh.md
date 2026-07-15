@@ -2,20 +2,20 @@
 Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为游戏添加了各种神话生物，如龙、半鹰半狮兽、精灵等！
 
 # Ice and Fire 1.20.1：三种龙穴由 Feature 迁移为 Structure
-
 本修改把以下三个地下龙穴从 `Feature<NoneFeatureConfiguration>` 改为原生 `Structure`：
 - `iceandfire:fire_dragon_cave`
 - `iceandfire:ice_dragon_cave`
 - `iceandfire:lightning_dragon_cave`
-目标版本：Minecraft 1.20.1 / Forge，对应本源码包 `Ice_and_Fire-1.20.1-2.1.13-beta-5`。
+
+目标版本：Minecraft 1.20.1 Forge，对应本源码包 `Ice_and_Fire-1.20.1-2.1.13-beta-5`。
 
 ## 主要实现
 
 ### 1. 原生 Structure 与 StructurePiece
-
 - `DragonCaveStructure`：负责候选区块、概率、高度、生物群系、距离和龙穴间距判定，并创建结构起点。
 - `DragonCavePiece`：保存龙种、中心、半径、年龄、性别和随机种子，通过 NBT 持久化；在每个相交区块内分块放置洞穴。
 - `DragonCaveType`：集中维护火龙、冰龙、雷龙各自的方块、矿石标签、钟乳石、宝藏堆、实体及战利品表。
+
 大型洞穴不再依赖一次 Feature 调用跨越多个区块，而是由 `StructurePiece#postProcess` 按区块边界生成，可被结构系统保存和定位。
 
 ### 2. 注册与数据文件
@@ -26,6 +26,7 @@ Ice and Fire 是一款由Raptorfarian和Alexthe666制作的Minecraft模组，为
 - 三个 `worldgen/structure/*.json`
 - 三个 `worldgen/structure_set/*.json`
 - 三个 `tags/worldgen/biome/has_structure/*.json`
+
 同时移除三种龙穴原有的 configured feature、placed feature 和 biome modifier 注入。
 
 ### 3. 保留的玩法逻辑
